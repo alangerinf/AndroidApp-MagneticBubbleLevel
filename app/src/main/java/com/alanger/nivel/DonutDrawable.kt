@@ -1,24 +1,25 @@
 package com.alanger.nivel
 
+import android.content.Context
+import android.content.res.Resources
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.support.annotation.Keep
+import android.widget.Toast
+import java.security.AccessController.getContext
 import java.util.*
+import android.graphics.Bitmap
 
-class DonutDrawable(sprinkleCount: Int) : Drawable() {
+
+
+class DonutDrawable(ctx: Context) : Drawable() {
 
   /*
    * Base
    */
   private val basePaint = Paint().apply {
-    color = 0xFFc6853b.toInt()
+    color = 0xFFFFFFFF.toInt()
   }
-  var baseColor: Int
-    get() = basePaint.color
-    set(value) {
-      basePaint.color = value
-      invalidateSelf()
-    }
 
   var scale = 1f
     set(value) {
@@ -26,57 +27,23 @@ class DonutDrawable(sprinkleCount: Int) : Drawable() {
       invalidateSelf()
     }
 
-  /**
-   * Whether this is a whole donut, or a donut hole.
-   */
-
-  var isHole = false
+  var angleX = 0f
     set(value) {
       field = value
       invalidateSelf()
     }
+
+  var angleY = 0f
+    set(value) {
+      field = value
+      invalidateSelf()
+    }
+
   private val holePath = Path()
 
-  /*
-   * Icing
-   */
-  private val icingPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-   // pathEffect = ComposePathEffect(CornerPathEffect(40f), DiscretePathEffect(60f, 25f))
-    color = 0xFF53250F.toInt()
-  }
-  var icingColor: Int
-    get() = icingPaint.color
-    set(value) {
-      icingPaint.color = value
-      invalidateSelf()
-    }
+  var icon:Bitmap ?= null
 
-  /*
-   * Sprinkles
-   */
-  private data class Sprinkle(val color: Int, val angle: Float, val distance: Float, var rotation: Float)
-  private val sprinkleColors = intArrayOf(Color.RED, Color.WHITE, Color.YELLOW, Color.BLUE, Color.CYAN, Color.GREEN, Color.MAGENTA)
-  private val sprinkles = generateSprinkles(sprinkleCount)
-  private val sprinklePaint = Paint(Paint.ANTI_ALIAS_FLAG)
-  @get:Keep @set:Keep var sprinkleRotation = 0f
-    set(value) {
-      field = value
-      invalidateSelf()
-    }
-
-  private fun generateSprinkles(sprinkleCount: Int): List<Sprinkle> {
-    val random = Random()
-    return mutableListOf<Sprinkle>().also {
-      for (i in 0 until sprinkleCount) {
-        it += Sprinkle(
-            color = sprinkleColors[i % sprinkleColors.size],
-            angle = random.nextFloat() * 360f,
-            distance = random.nextFloat(),
-            rotation = random.nextFloat() * 360f
-        )
-      }
-    }
-  }
+  private val context = ctx
 
   override fun onBoundsChange(bounds: Rect?) {
     super.onBoundsChange(bounds)
@@ -93,15 +60,17 @@ class DonutDrawable(sprinkleCount: Int) : Drawable() {
     val cx = bounds.exactCenterX()
     val cy = bounds.exactCenterY()
 
+    val baseRadius = (bounds.width() / 2f)
 
+    val pointerRadius = baseRadius/5f
+    val maxTranslate_AXIS = baseRadius - pointerRadius
 
-    var baseRadius = (bounds.width() / 2f)
-    var borderBounds = baseRadius/20
+    icon = BitmapFactory.decodeResource(context.resources,R.drawable.ball)
+    icon = Bitmap.createScaledBitmap(
+            icon, ((baseRadius/13f)+(pointerRadius*2f)).toInt(),( +(baseRadius/13f)+(pointerRadius*2f)).toInt(), false)
 
-    var pointerRadius = baseRadius/5f
-    var maxTranslate_AXIS = baseRadius - pointerRadius - borderBounds
+    canvas?.let {
 
-    canvas?.let { canvas ->
       canvas.scale(scale, scale,
           bounds.width() / 2f,
           bounds.height() / 2f)
@@ -111,66 +80,41 @@ class DonutDrawable(sprinkleCount: Int) : Drawable() {
           cy, // cy
           baseRadius, // radius
           basePaint)
-
-
-
-      // draw the sprinkles
-
-/**
-      sprinkles.forEach {
-        val holeRadius = bounds.width() / 6f
-        val padding = 20f
-
-        // set the distance based on whether this is a donut hole or a whole donut
-        val modDistance = if (isHole) {
-          holeRadius * it.distance
-        } else {
-          val ringRadius = bounds.width() / 3f
-          holeRadius + padding + (ringRadius - padding * 2) * it.distance
-        }
-
-        canvas.save()
-        canvas.rotate(it.angle, cx, cy) // rotate the entire canvas around the center
-        canvas.translate(0f, modDistance) // move the canvas to the sprinkle's position
-        canvas.rotate(it.rotation + 360f * sprinkleRotation, cx, cy) // rotate the canvas around the sprinkle's location
-
-        sprinklePaint.color = it.color
-        canvas.drawRoundRect(cx - 7f, cy - 22f, cx + 7f, cy + 22f, 10f, 10f, sprinklePaint)
-
-        canvas.restore()
-      }
-
-      */
-
-      //canvas.restoreToCount(saveCount)
     }
-
 
 
     canvas?.translate(maxTranslate_AXIS,0f)
 
-    canvas?.translate(0f,maxTranslate_AXIS)
+   // canvas?.translate(0f,maxTranslate_AXIS)
+
+
+    canvas?.save()
+
+   // val  scalePointer = ((baseRadius/(icon!!.width))*pointerRadius)/(baseRadius/2f)
+
+
+  //  canvas?.translate(cx,cy)
+
+   // canvas?.scale(scalePointer,scalePointer)
 
     canvas?.let {
-
-      canvas.drawCircle(
-              cx  ,
-              cy,
-              pointerRadius,
-              icingPaint)
+        canvas.drawBitmap(
+                icon
+                ,cx-(pointerRadius)
+                ,cy-(pointerRadius)
+                ,null)
     }
 
+    canvas?.restore()
 
+/*
+    canvas?.drawCircle(
+            cx,
+            cy,
+            pointerRadius,
+            icingPaint)
+*/
   }
-
-
-
-
-
-
-
-
-
 
   override fun setAlpha(alpha: Int) {
     throw IllegalStateException("Who wants an invisible donut?")
