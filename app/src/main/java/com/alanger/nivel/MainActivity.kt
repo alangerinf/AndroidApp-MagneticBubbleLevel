@@ -1,5 +1,6 @@
 package com.alanger.nivel
 
+import android.app.Service
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.hardware.Sensor
@@ -8,6 +9,8 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Vibrator
+import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
@@ -24,23 +27,44 @@ class MainActivity : AppCompatActivity() , SensorEventListener  {
 
 
   private val platter: ImageView by lazy { findViewById<ImageView>(R.id.platter) }
-  private val scale: SeekBar by lazy { findViewById<SeekBar>(R.id.seekBar) }
 
-  private val donut = DonutDrawable(this)
+  private var donut :DonutDrawable? = null
 
 
   private val tViewX: TextView by lazy { findViewById<TextView>(R.id.tViewX) }
   private val tViewY: TextView by lazy { findViewById<TextView>(R.id.tViewY) }
 
 
+  private val fabReset: FloatingActionButton by lazy { findViewById<FloatingActionButton>(R.id.floatingActionButton) }
+
+
+
+  var vibratorService : Vibrator?= null
+
+
+
+  var  G0 : Double? = 0.0
+  var  G1 : Double? = 0.0
+  var  G2 : Double? = 0.0
+
+  var  resetX : Double? = 0.0
+  var  resetY : Double? = 0.0
+
+
+
+
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_metal_ball)
+    setContentView(R.layout.activity_nivel_center)
+
+    vibratorService = (baseContext.getSystemService(Service.VIBRATOR_SERVICE)) as Vibrator
 
     // Get the sensors to use
     mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
     mSensorAcc = mSensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
+    donut = DonutDrawable(this,vibratorService!!)
 
     platter.setImageDrawable(donut)
 
@@ -60,19 +84,13 @@ class MainActivity : AppCompatActivity() , SensorEventListener  {
       View.SYSTEM_UI_FLAG_IMMERSIVE
     }
 
+    fabReset.setOnClickListener {
+      resetX = G0
+      resetY = G1
+    }
 
 
-  //  setSupportActionBar(toolbar)
 
-    scale.progress = (scale.max * donut.scale).toInt()
-    scale.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-      override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-        if (!fromUser) return
-        donut.scale = progress.toFloat() / scale.max
-      }
-      override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-      override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-    })
 
   }
 
@@ -98,23 +116,25 @@ class MainActivity : AppCompatActivity() , SensorEventListener  {
 
 
     var g0 = event!!.values[0].toDouble()
-    var q1 = event!!.values[1].toDouble()
+    var g1 = event!!.values[1].toDouble()
     var q2 = event!!.values[2].toDouble()
 
 
 
-    val norm_Of_g = Math.sqrt((g0 * g0 + q1 * q1 +q2 * q2))
+    val norm_Of_g = Math.sqrt((g0 * g0 + g1 * g1 +q2 * q2))
 
     g0 = g0 / norm_Of_g
-    q1 = q1 / norm_Of_g
-    q2 = q2 / norm_Of_g
+    g1 = g1 / norm_Of_g
+   // q2 = q2 / norm_Of_g
 
 
-/*
-    val inclinationx = Math.round(Math.toDegrees(Math.acos(g[0].toDouble()))).toInt()
-    val inclinationy = Math.round(Math.toDegrees(Math.acos(g[1].toDouble()))).toInt()
-    val inclinationz = Math.round(Math.toDegrees(Math.acos(g[2].toDouble()))).toInt()
-*/
+    var resitencia = 3
+
+    G0 =   (((G0!!*resitencia) + g0 ) /(resitencia+1))
+    G1 =   (((G1!!*resitencia) + g1 ) /(resitencia+1))
+
+     val inclinationz = Math.round(Math.toDegrees(Math.acos(q2))).toInt()
+
 
 //    val rotationx =  Math.round(Math.toDegrees(Math.atan2(g0, q1)))// angulo de lado
 
@@ -126,11 +146,14 @@ class MainActivity : AppCompatActivity() , SensorEventListener  {
 
       if (event != null) {
 
-        val x = ("%.1f".format(g0*90))
-        val y = ("%.1f".format(q1*90))
+        val x = ("%.1f".format((G0!!-resetX!!) *90))
+        val y = ("%.1f".format(-((G1!!-resetY!!) *90)))
 //        val z = ("%.2f".format(rotationz))
 
-        tViewX.text = ""+x
+        donut!!.angleX = x.toFloat()
+        donut!!.angleY = y.toFloat()
+
+        tViewX.text = ""+(-x.toFloat())
         tViewY.text = ""+y
 
 
