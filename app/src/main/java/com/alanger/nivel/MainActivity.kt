@@ -89,9 +89,6 @@ class MainActivity : AppCompatActivity() , SensorEventListener  {
       resetY = G1
     }
 
-
-
-
   }
 
   override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
@@ -117,23 +114,24 @@ class MainActivity : AppCompatActivity() , SensorEventListener  {
 
     var g0 = event!!.values[0].toDouble()
     var g1 = event!!.values[1].toDouble()
-    var q2 = event!!.values[2].toDouble()
-
-
-
-    val norm_Of_g = Math.sqrt((g0 * g0 + g1 * g1 +q2 * q2))
+    var g2 = event!!.values[2].toDouble()
+    
+    Log.d("helloo","["+g0+"\t"+g1+"\t"+g2)
+    
+    
+    val norm_Of_g = Math.sqrt((g0 * g0 + g1 * g1 +g2 * g2))
 
     g0 = g0 / norm_Of_g
     g1 = g1 / norm_Of_g
    // q2 = q2 / norm_Of_g
 
 
-    var resitencia = 3
+    var resitencia = 10
 
     G0 =   (((G0!!*resitencia) + g0 ) /(resitencia+1))
     G1 =   (((G1!!*resitencia) + g1 ) /(resitencia+1))
 
-     val inclinationz = Math.round(Math.toDegrees(Math.acos(q2))).toInt()
+     val inclinationz = Math.round(Math.toDegrees(Math.acos(g2))).toInt()
 
 
 //    val rotationx =  Math.round(Math.toDegrees(Math.atan2(g0, q1)))// angulo de lado
@@ -146,18 +144,24 @@ class MainActivity : AppCompatActivity() , SensorEventListener  {
 
       if (event != null) {
 
-        val x = ("%.1f".format((G0!!-resetX!!) *90))
-        val y = ("%.1f".format(-((G1!!-resetY!!) *90)))
+        val x_ = (G0!!-resetX!!) *90
+        val y_ = -((G1!!-resetY!!) *90)
+
+        val x = "%.1f".format(x_)
+        val y = "%.1f".format(y_)
+
 //        val z = ("%.2f".format(rotationz))
 
-        donut!!.angleX = x.toFloat()
-        donut!!.angleY = y.toFloat()
-
-        tViewX.text = ""+(-x.toFloat())
-        tViewY.text = ""+y
-
-
-
+        try{
+          donut!!.angleX = x.toFloat()
+          donut!!.angleY = y.toFloat()
+        }catch (e: Exception){
+        //  donut!!.angleX = x.replace(",",".").toFloat()
+        //  donut!!.angleY = y.replace(",",".").toFloat()
+        }finally {
+          tViewX.text = ""+(-donut!!.angleX)
+          tViewY.text = ""+(donut!!.angleY)
+        }
 
       //  Toast.makeText(this,"x"+x,Toast.LENGTH_SHORT).show()
 
@@ -198,15 +202,15 @@ class MainActivity : AppCompatActivity() , SensorEventListener  {
   override fun onResume() {
     super.onResume()
     Log.d("hello","OnResume")
-    mSensorManager!!.registerListener(this, mSensorAcc, SensorManager.SENSOR_DELAY_NORMAL)
+    mSensorManager!!.registerListener(this, mSensorAcc, SensorManager.SENSOR_DELAY_GAME)
   }
 
-    override fun onPause() {
-        super.onPause()
+  override fun onPause() {
+      super.onPause()
 
-      Log.d("hello","OnPause")
-        mSensorManager!!.unregisterListener(this)
-    }
+    Log.d("hello","OnPause")
+      mSensorManager!!.unregisterListener(this)
+  }
 
 
 }
