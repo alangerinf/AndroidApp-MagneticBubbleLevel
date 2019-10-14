@@ -16,8 +16,7 @@
       android:theme="@style/AppTheme"
       tools:ignore="GoogleAppIndexingWarning">
     <activity
-        android:name="com.alanger.nivel.MainActivity"
-        android:label="@string/title_activity_main"
+        android:name="com.alanger.nivel.NivelEchadoActivity"
         android:theme="@style/AppTheme.NoActionBar"
         >
       <intent-filter>

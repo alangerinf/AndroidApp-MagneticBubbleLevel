@@ -8,7 +8,7 @@ import android.os.Vibrator
 import android.util.Log
 
 
-class DonutDrawable(ctx: Context , vibratorService : Vibrator) : Drawable() {
+class EchadoDrawable(ctx: Context, vibratorService : Vibrator) : Drawable() {
 
 
 
@@ -36,7 +36,7 @@ class DonutDrawable(ctx: Context , vibratorService : Vibrator) : Drawable() {
   }
 
   private val whiteStrokePaint = Paint().apply {
-    color = 0xFFFFFFFF.toInt()
+    color = 0xFF888888.toInt()
     strokeWidth = 3F
     style = Paint.Style.STROKE
   }
@@ -86,25 +86,14 @@ class DonutDrawable(ctx: Context , vibratorService : Vibrator) : Drawable() {
 
     val baseRadius = (bounds.width() / 2f)
 
-    val pointerRadius = baseRadius/6f
+    val pointerRadius = baseRadius/20f
     val maxTranslate_AXIS = baseRadius - pointerRadius
 
     icon = BitmapFactory.decodeResource(context.resources,R.drawable.ball2)
     icon = Bitmap.createScaledBitmap(
             icon, ((pointerRadius*2f)).toInt(),(pointerRadius*2f).toInt(), false)
 
-
-      var  circlebase = BitmapFactory.decodeResource(context.resources,R.drawable.mycircle)
-      circlebase = Bitmap.createScaledBitmap(circlebase,baseRadius.toInt()*2,baseRadius.toInt()*2,false)
-
         canvas?.let {
-
-          canvas.drawBitmap(
-                  circlebase,
-                  0f,
-                  0f,
-                  null
-          )
 
           canvas.drawCircle(
                   cx,
@@ -144,21 +133,14 @@ class DonutDrawable(ctx: Context , vibratorService : Vibrator) : Drawable() {
           )
 
 
-          //borde externo
-          canvas.drawCircle(
-                  cx,
-                  cy,
-                  baseRadius-3,
-                  blackStrokePaint)
-
           //pequeño irulo negro medio
-
+          /*
           canvas.drawCircle(
                   cx,
                   cy,
                   maxTranslate_AXIS*0.125f,
                   basePaint)
-
+*/
             /*
 
           canvas.drawCircle(
@@ -171,7 +153,7 @@ class DonutDrawable(ctx: Context , vibratorService : Vibrator) : Drawable() {
              */
         }
 
-      val maxAngleX= converMaxAngle(angleX)
+      val maxAngleX= converMaxAngle(angleY)
       val maxAngleY= converMaxAngle(angleY)
 
 
@@ -181,13 +163,7 @@ class DonutDrawable(ctx: Context , vibratorService : Vibrator) : Drawable() {
 
     Log.d("Donut",""+posX+" "+posY)
 
-    val h = Math.sqrt(( Math.pow(posX.toDouble(), 2.0) ) + (Math.pow(posY.toDouble(), 2.0) ))
-
-    if(h>maxTranslate_AXIS){
-      val sinAng = posY/h
-      val cosAng = posX/h
-      posX = (cosAng * maxTranslate_AXIS).toFloat()
-      posY = (sinAng * maxTranslate_AXIS).toFloat()
+    if((posX>=maxTranslate_AXIS && posX>0  )|| (-posX>=maxTranslate_AXIS && posX<0  )){
 
       if(!isBorder){
         myVibratorService.vibrate(100)
@@ -198,7 +174,7 @@ class DonutDrawable(ctx: Context , vibratorService : Vibrator) : Drawable() {
     }
 
     canvas?.translate(posX,0f)
-    canvas?.translate(0f,posY)
+    //canvas?.translate(0f,posY)
 
 
     canvas?.save()

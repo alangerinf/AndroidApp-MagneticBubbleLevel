@@ -3,6 +3,7 @@ package com.alanger.nivel
 import android.app.Service
 import android.content.Context
 import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -16,9 +17,14 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
+import android.view.OrientationEventListener
 
 
-class MainActivity : AppCompatActivity() , SensorEventListener  {
+
+
+
+
+class NivelEchadoActivity : AppCompatActivity() , SensorEventListener  {
 
 
   private var mSensorManager: SensorManager? = null
@@ -28,11 +34,10 @@ class MainActivity : AppCompatActivity() , SensorEventListener  {
 
   private val platter: ImageView by lazy { findViewById<ImageView>(R.id.platter) }
 
-  private var donut :DonutDrawable? = null
+  private var centrado :EchadoDrawable? = null
 
 
   private val tViewX: TextView by lazy { findViewById<TextView>(R.id.tViewX) }
-  private val tViewY: TextView by lazy { findViewById<TextView>(R.id.tViewY) }
 
 
   private val fabReset: FloatingActionButton by lazy { findViewById<FloatingActionButton>(R.id.floatingActionButton) }
@@ -52,11 +57,12 @@ class MainActivity : AppCompatActivity() , SensorEventListener  {
 
 
 
+  var orientacion = 1
 
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_nivel_center)
+    setContentView(R.layout.activity_nivel_echado)
 
     vibratorService = (baseContext.getSystemService(Service.VIBRATOR_SERVICE)) as Vibrator
 
@@ -64,13 +70,13 @@ class MainActivity : AppCompatActivity() , SensorEventListener  {
     mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
     mSensorAcc = mSensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
-    donut = DonutDrawable(this,vibratorService!!)
+    centrado = EchadoDrawable(this,vibratorService!!)
 
-    platter.setImageDrawable(donut)
+    platter.setImageDrawable(centrado)
 
 
     // setup the window
-    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
 
     window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -89,6 +95,31 @@ class MainActivity : AppCompatActivity() , SensorEventListener  {
       resetY = G1
     }
 
+
+    var mOrientationEventListener = object : OrientationEventListener(this, SensorManager.SENSOR_DELAY_GAME) {
+
+      override fun onOrientationChanged(orientation: Int) {
+
+        if (orientation == 0) {
+          Log.e("TEST", "orientation-Portrait  = $orientation")
+        } else if (orientation == 90) {
+          orientacion=-1
+          Log.e("TEST", "orientation-Landscape = $orientation")
+        } else if (orientation == 180) {
+          Log.e("TEST", "orientation-Portrait-rev = $orientation")
+        } else if (orientation == 270) {
+          orientacion=1
+          Log.e("TEST", "orientation-Landscape-rev = $orientation")
+        } else if (orientation == 360) {
+          Log.e("TEST", "orientation-Portrait= $orientation")
+        }
+
+      }
+    }
+
+    mOrientationEventListener.enable()
+
+
   }
 
   override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
@@ -98,19 +129,6 @@ class MainActivity : AppCompatActivity() , SensorEventListener  {
   override fun onSensorChanged(event: SensorEvent?) {
 
     Log.d("hello","onSensorChanged()")
-
-    /*
-    if (event?.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE) {
-
-      if (event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
-        tViewX.setText("--")
-        tViewY.setText("--")
-        tViewZ.setText("--")
-
-      return
-    }
-*/
-
 
     var g0 = event!!.values[0].toDouble()
     var g1 = event!!.values[1].toDouble()
@@ -144,59 +162,36 @@ class MainActivity : AppCompatActivity() , SensorEventListener  {
 
       if (event != null) {
 
-        val x_ = (G0!!-resetX!!) *90
-        val y_ = -((G1!!-resetY!!) *90)
+        var x_ = (G0!!-resetX!!) *90
+        var y_ = -((G1!!-resetY!!) *90) *orientacion
+        /*
+        if(requestedOrientation == Configuration.ORIENTATION_){
+          x_ = -x_
+          y_ = -y_
+        }else{
 
+
+        }
+         */
         val x = "%.1f".format(x_)
         val y = "%.1f".format(y_)
 
 //        val z = ("%.2f".format(rotationz))
 
         try{
-          donut!!.angleX = x.toFloat()
-          donut!!.angleY = y.toFloat()
+          centrado!!.angleX = x.toFloat()
+          centrado!!.angleY = y.toFloat()
         }catch (e: Exception){
-        //  donut!!.angleX = x.replace(",",".").toFloat()
-        //  donut!!.angleY = y.replace(",",".").toFloat()
+          centrado!!.angleX = x.replace(",",".").toFloat()
+          centrado!!.angleY = y.replace(",",".").toFloat()
         }finally {
-          tViewX.text = ""+(-donut!!.angleX)
-          tViewY.text = ""+(donut!!.angleY)
+          tViewX.text = ""+(centrado!!.angleY)
+
         }
 
       //  Toast.makeText(this,"x"+x,Toast.LENGTH_SHORT).show()
 
       }
-      /*
-
-      if (event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
-        tViewX!!.text = "x = " + java.lang.Float.toString(event.values[0])
-        tViewY!!.text = "y = " + java.lang.Float.toString(event.values[1])
-        tViewZ!!.text = "z = " + java.lang.Float.toString(event.values[2])
-       // detectShake(event)
-      } else if (event.sensor.type == Sensor.TYPE_GYROSCOPE) {
-        tViewX!!.text = "x = " + java.lang.Float.toString(event.values[0])
-        tViewY!!.text = "y = " + java.lang.Float.toString(event.values[1])
-        tViewZ!!.text = "z = " + java.lang.Float.toString(event.values[2])
-       // detectRotation(event)
-      }
-*/
-
-
-/*
-      if (event != null) {
-
-      val x = ("%.2f".format(event.values[0]))
-      val y = ("%.2f".format(event.values[1]))
-      val z = ("%.2f".format(event.values[2]))
-
-      tViewX.setText( ""+x)
-      tViewY.text = ""+y
-      tViewZ.text = ""+z
-
-      Toast.makeText(this,"x"+x,Toast.LENGTH_SHORT).show()
-*/
-//      ground!!.updateMe(event.values[1] , event.values[0])
-
 
   }
   override fun onResume() {
