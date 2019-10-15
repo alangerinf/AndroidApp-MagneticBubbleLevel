@@ -1,4 +1,4 @@
-package com.alanger.nivel
+package com.alanger.nivel.main.nivel.centrado
 
 import android.content.Context
 import android.graphics.*
@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.Bitmap
 import android.os.Vibrator
 import android.util.Log
+import com.alanger.nivel.R
 
 
 class CentradoDrawable(ctx: Context, vibratorService : Vibrator) : Drawable() {
@@ -36,7 +37,7 @@ class CentradoDrawable(ctx: Context, vibratorService : Vibrator) : Drawable() {
   }
 
   private val whiteStrokePaint = Paint().apply {
-    color = 0xFFFFFFFF.toInt()
+      color = 0xFF888888.toInt()
     strokeWidth = 3F
     style = Paint.Style.STROKE
   }
@@ -89,23 +90,23 @@ class CentradoDrawable(ctx: Context, vibratorService : Vibrator) : Drawable() {
     val pointerRadius = baseRadius/6f
     val maxTranslate_AXIS = baseRadius - pointerRadius
 
-    icon = BitmapFactory.decodeResource(context.resources,R.drawable.ball2)
+    icon = BitmapFactory.decodeResource(context.resources, R.drawable.ball2)
     icon = Bitmap.createScaledBitmap(
             icon, ((pointerRadius*2f)).toInt(),(pointerRadius*2f).toInt(), false)
 
 
-      var  circlebase = BitmapFactory.decodeResource(context.resources,R.drawable.mycircle)
+      var  circlebase = BitmapFactory.decodeResource(context.resources, R.drawable.mycircle)
       circlebase = Bitmap.createScaledBitmap(circlebase,baseRadius.toInt()*2,baseRadius.toInt()*2,false)
 
         canvas?.let {
-
+/*
           canvas.drawBitmap(
                   circlebase,
                   0f,
                   0f,
                   null
           )
-
+*/
           canvas.drawCircle(
                   cx,
                   cy,
@@ -143,7 +144,7 @@ class CentradoDrawable(ctx: Context, vibratorService : Vibrator) : Drawable() {
                   whiteStrokePaint
           )
 
-
+/*
           //borde externo
           canvas.drawCircle(
                   cx,
@@ -153,13 +154,14 @@ class CentradoDrawable(ctx: Context, vibratorService : Vibrator) : Drawable() {
 
           //pequeño irulo negro medio
 
+
           canvas.drawCircle(
                   cx,
                   cy,
                   maxTranslate_AXIS*0.125f,
                   basePaint)
 
-            /*
+
 
           canvas.drawCircle(
               cx, // cx

@@ -1,4 +1,4 @@
-package com.alanger.nivel
+package com.alanger.nivel.main.nivel.centrado
 
 import android.app.Service
 import android.content.Context
@@ -10,12 +10,16 @@ import android.hardware.SensorManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Vibrator
-import android.support.design.widget.FloatingActionButton
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
+import com.alanger.nivel.R
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 
 
 class NivelCentradoActivity : AppCompatActivity() , SensorEventListener  {
@@ -25,10 +29,11 @@ class NivelCentradoActivity : AppCompatActivity() , SensorEventListener  {
   private var mSensorAcc: Sensor? = null
 
 
+  private val adViewBottom: AdView by lazy { findViewById<AdView>(R.id.adViewBottom) }
 
   private val platter: ImageView by lazy { findViewById<ImageView>(R.id.platter) }
 
-  private var centrado :CentradoDrawable? = null
+  private var centrado : CentradoDrawable? = null
 
 
   private val tViewX: TextView by lazy { findViewById<TextView>(R.id.tViewX) }
@@ -58,13 +63,18 @@ class NivelCentradoActivity : AppCompatActivity() , SensorEventListener  {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_nivel_center)
 
+
+    MobileAds.initialize(this)
+    val adRequestBottom = AdRequest.Builder().build()
+    adViewBottom.loadAd(adRequestBottom)
+
     vibratorService = (baseContext.getSystemService(Service.VIBRATOR_SERVICE)) as Vibrator
 
     // Get the sensors to use
     mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
     mSensorAcc = mSensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
-    centrado = CentradoDrawable(this,vibratorService!!)
+    centrado = CentradoDrawable(this, vibratorService!!)
 
     platter.setImageDrawable(centrado)
 

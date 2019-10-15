@@ -1,4 +1,4 @@
-package com.alanger.nivel
+package com.alanger.nivel.main.nivel.echado
 
 import android.content.Context
 import android.graphics.*
@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.Bitmap
 import android.os.Vibrator
 import android.util.Log
+import com.alanger.nivel.R
 
 
 class EchadoDrawable(ctx: Context, vibratorService : Vibrator) : Drawable() {
@@ -89,7 +90,7 @@ class EchadoDrawable(ctx: Context, vibratorService : Vibrator) : Drawable() {
     val pointerRadius = baseRadius/20f
     val maxTranslate_AXIS = baseRadius - pointerRadius
 
-    icon = BitmapFactory.decodeResource(context.resources,R.drawable.ball2)
+    icon = BitmapFactory.decodeResource(context.resources, R.drawable.ball2)
     icon = Bitmap.createScaledBitmap(
             icon, ((pointerRadius*2f)).toInt(),(pointerRadius*2f).toInt(), false)
 

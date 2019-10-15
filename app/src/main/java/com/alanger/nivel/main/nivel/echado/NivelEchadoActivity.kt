@@ -1,9 +1,8 @@
-package com.alanger.nivel
+package com.alanger.nivel.main.nivel.echado
 
 import android.app.Service
 import android.content.Context
 import android.content.pm.ActivityInfo
-import android.content.res.Configuration
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -11,17 +10,14 @@ import android.hardware.SensorManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Vibrator
-import android.support.design.widget.FloatingActionButton
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
 import android.view.OrientationEventListener
-
-
-
-
+import com.alanger.nivel.R
 
 
 class NivelEchadoActivity : AppCompatActivity() , SensorEventListener  {
@@ -34,7 +30,7 @@ class NivelEchadoActivity : AppCompatActivity() , SensorEventListener  {
 
   private val platter: ImageView by lazy { findViewById<ImageView>(R.id.platter) }
 
-  private var centrado :EchadoDrawable? = null
+  private var centrado : EchadoDrawable? = null
 
 
   private val tViewX: TextView by lazy { findViewById<TextView>(R.id.tViewX) }
@@ -70,7 +66,7 @@ class NivelEchadoActivity : AppCompatActivity() , SensorEventListener  {
     mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
     mSensorAcc = mSensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
-    centrado = EchadoDrawable(this,vibratorService!!)
+    centrado = EchadoDrawable(this, vibratorService!!)
 
     platter.setImageDrawable(centrado)
 

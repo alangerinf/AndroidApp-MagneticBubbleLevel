@@ -10,5 +10,7 @@
 
 
   <color name="squareColor">#3F51B5</color>
+    <color name="azul_ojete">#47A0F5</color>
+  <color name="plomo">#353535</color>
 
 </resources>
