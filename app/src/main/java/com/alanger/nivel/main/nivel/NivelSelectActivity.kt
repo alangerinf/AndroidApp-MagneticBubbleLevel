@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.alanger.nivel.R
+import com.alanger.nivel.main.interstitial.Inter
 import com.alanger.nivel.main.nivel.centrado.NivelCentradoActivity
 import com.alanger.nivel.main.nivel.echado.NivelEchadoActivity
 import com.google.android.gms.ads.AdRequest
@@ -30,14 +31,19 @@ class NivelSelectActivity : AppCompatActivity() {
         adViewTop.loadAd(adRequestTop)
         adViewBottom.loadAd(adRequestBottom)
 
+        val inter = Inter(this)
+        inter.init()
+
         btnCentrado.setOnClickListener {
             val i = Intent(this, NivelCentradoActivity::class.java)
             startActivity(i)
+            inter.tryShow()
         }
 
         btnEchado.setOnClickListener {
             val i = Intent(this, NivelEchadoActivity::class.java)
             startActivity(i)
+            inter.tryShow()
         }
 
 

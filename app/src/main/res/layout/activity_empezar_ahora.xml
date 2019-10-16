@@ -43,23 +43,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/btnCentrado"
-            android:textColor="@color/colorPrimaryDark"
-            android:backgroundTint="@color/colorPrimary"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nivel Centrado" />
 
-        <Button
-            android:id="@+id/btnEchado"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:textColor="@color/colorPrimary"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEmpezar"
             android:textStyle="bold"
+            android:backgroundTint="@color/amarilloHomosexual"
+            android:textColor="@color/plomo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nivel Echado" />
+            android:text="HERRAMIENTA QR"
+            />
+
     </LinearLayout>
 
     <com.google.android.gms.ads.AdView

@@ -50,7 +50,7 @@
             android:textStyle="bold"
             android:backgroundTint="@color/amarilloHomosexual"
             android:layout_width="match_parent"
-            android:textColor="@color/azul_ojete"
+            android:textColor="@color/plomo"
             android:layout_height="wrap_content"
             android:text="Nivel"
             />
@@ -58,9 +58,9 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnQR"
             android:textStyle="bold"
-            android:backgroundTint="@color/amarilloHomosexual"
+            android:backgroundTint="@color/plomo"
             android:layout_width="match_parent"
-            android:textColor="@color/azul_ojete"
+            android:textColor="@color/amarilloHomosexual"
             android:layout_height="wrap_content"
             android:text="HERRAMIENTA QR"
             />

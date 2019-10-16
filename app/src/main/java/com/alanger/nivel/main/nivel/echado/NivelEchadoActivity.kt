@@ -18,6 +18,9 @@ import android.view.WindowManager
 import android.widget.*
 import android.view.OrientationEventListener
 import com.alanger.nivel.R
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 
 
 class NivelEchadoActivity : AppCompatActivity() , SensorEventListener  {
@@ -26,12 +29,11 @@ class NivelEchadoActivity : AppCompatActivity() , SensorEventListener  {
   private var mSensorManager: SensorManager? = null
   private var mSensorAcc: Sensor? = null
 
-
-
   private val platter: ImageView by lazy { findViewById<ImageView>(R.id.platter) }
 
   private var centrado : EchadoDrawable? = null
 
+  private val adViewBottom: AdView by lazy { findViewById<AdView>(R.id.adViewBottom) }
 
   private val tViewX: TextView by lazy { findViewById<TextView>(R.id.tViewX) }
 
@@ -59,6 +61,12 @@ class NivelEchadoActivity : AppCompatActivity() , SensorEventListener  {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_nivel_echado)
+
+
+    MobileAds.initialize(this)
+    val adRequestBottom = AdRequest.Builder().build()
+    adViewBottom.loadAd(adRequestBottom)
+
 
     vibratorService = (baseContext.getSystemService(Service.VIBRATOR_SERVICE)) as Vibrator
 

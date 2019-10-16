@@ -17,22 +17,73 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".main.qr.QRSelectActivity"></activity>
+
+
         <activity android:name=".main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".main.nivel.NivelSelectActivity"></activity>
+
+
+        <activity android:name=".main.nivel.NivelEmpezarAhoraActivity"
+            android:parentActivityName=".main.MainActivity"
+            />
+
+        <activity android:name=".main.qr.QREmpezarAhoraActivity"
+            android:parentActivityName=".main.MainActivity"
+            />
+
+
+        <activity android:name=".main.nivel.NivelSelectActivity"
+            android:parentActivityName=".main.nivel.NivelEmpezarAhoraActivity"
+            />
+
+        <activity android:name=".main.qr.QRSelectActivity"
+            android:parentActivityName=".main.qr.QREmpezarAhoraActivity"
+            >
+        </activity>
+
+
         <activity
             android:name=".main.nivel.echado.NivelEchadoActivity"
+            android:parentActivityName=".main.nivel.NivelSelectActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".main.nivel.centrado.NivelCentradoActivity"
+            android:parentActivityName=".main.nivel.NivelSelectActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".main.qr.leer.CustomScannerActivity"
+            android:parentActivityName=".main.qr.QRSelectActivity"
+            android:screenOrientation="portrait"
+            android:stateNotNeeded="true"
+            android:windowSoftInputMode="stateAlwaysHidden">
+
+        </activity>
+
+        <activity android:name=".main.qr.crear.CrearQRActivity"
+            android:parentActivityName=".main.qr.QRSelectActivity"
+            android:screenOrientation="portrait"
+            android:stateNotNeeded="true"
+            android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
+
+        <!-- intersticial-->
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+        <meta-data
+            android:name="com.google.android.gms.ads.AD_MANAGER_APP"
+            android:value="true"/>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <!-- adview-->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />

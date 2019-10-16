@@ -48,16 +48,17 @@
             android:id="@+id/btnLeerQR"
             android:textColor="#fff"
             android:textStyle="bold"
+            android:backgroundTint="@color/azul_ojete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Leer QR" />
 
         <Button
             android:id="@+id/btnCrearQR"
-            android:layout_marginTop="32dp"
             android:textStyle="bold"
             android:layout_width="match_parent"
-            android:textColor="@color/plomo"
+            android:textColor="@color/azul_ojete"
+            android:backgroundTint="@color/white"
             android:layout_height="wrap_content"
             android:text="Crear QR" />
     </LinearLayout>

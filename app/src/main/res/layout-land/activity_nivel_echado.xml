@@ -143,6 +143,7 @@
             android:layout_height="wrap_content"
             android:text=" X°"
             android:textSize="32sp"
+            android:textColor="@color/plomo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -180,8 +181,6 @@
             android:tint="@color/verdeGay"
             app:backgroundTint="@color/plomo"
             app:fabSize="auto"
-
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
