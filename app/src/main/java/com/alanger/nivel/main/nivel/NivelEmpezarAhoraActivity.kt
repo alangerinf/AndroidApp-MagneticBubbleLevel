@@ -23,7 +23,7 @@ class NivelEmpezarAhoraActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_empezar_ahora)
 
-        title = "Herramienta QR"
+        title = "Herramienta Nivel"
 
         MobileAds.initialize(this)
 

@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">Nivel Técnico</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="adUnitId">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
+
+    <string name="adUnitId">ca-app-pub-7316865575286334/4829354347</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-7316865575286334/6973954343</string>
+    <string name="appid_admob">ca-app-pub-7316865575286334~2402980481</string>
+
 
 </resources>
