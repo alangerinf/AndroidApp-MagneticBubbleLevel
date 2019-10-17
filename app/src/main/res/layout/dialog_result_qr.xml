@@ -24,7 +24,7 @@
         <TextView
             android:id="@+id/tViewTitulo"
             android:layout_width="0dp"
-            android:layout_height="27dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="45dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="45dp"
@@ -62,15 +62,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tViewTitulo" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnOk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:text="OK"
-            android:backgroundTint="@color/azul_ojete"
-            android:textColor="@color/white"
+            style="@style/btnPrimary2"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

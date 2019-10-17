@@ -21,7 +21,7 @@ class QREmpezarAhoraActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_empezar_ahora)
+        setContentView(R.layout.activity_empezar_ahora_qr)
 
         title = "Herramienta QR"
 

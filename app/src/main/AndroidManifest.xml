@@ -33,6 +33,7 @@
 
         <activity android:name=".main.qr.QREmpezarAhoraActivity"
             android:parentActivityName=".main.MainActivity"
+            android:theme="@style/AppTheme2"
             />
 
 
@@ -42,6 +43,7 @@
 
         <activity android:name=".main.qr.QRSelectActivity"
             android:parentActivityName=".main.qr.QREmpezarAhoraActivity"
+            android:theme="@style/AppTheme2"
             >
         </activity>
 
@@ -57,6 +59,7 @@
 
         <activity
             android:name=".main.qr.leer.CustomScannerActivity"
+            android:theme="@style/AppTheme2"
             android:parentActivityName=".main.qr.QRSelectActivity"
             android:screenOrientation="portrait"
             android:stateNotNeeded="true"
@@ -65,6 +68,7 @@
         </activity>
 
         <activity android:name=".main.qr.crear.CrearQRActivity"
+            android:theme="@style/AppTheme2"
             android:parentActivityName=".main.qr.QRSelectActivity"
             android:screenOrientation="portrait"
             android:stateNotNeeded="true"

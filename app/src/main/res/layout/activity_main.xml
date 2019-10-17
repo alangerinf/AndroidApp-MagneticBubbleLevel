@@ -27,11 +27,7 @@
             android:layout_height="match_parent"
             android:alpha="0.4"
             android:background="#000"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
     <LinearLayout
         android:layout_width="0dp"
@@ -47,20 +43,21 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNivel"
-            android:textStyle="bold"
-            android:backgroundTint="@color/amarilloHomosexual"
+            style="@style/btnPrimary"
             android:layout_width="match_parent"
             android:textColor="@color/plomo"
             android:layout_height="wrap_content"
-            android:text="Nivel"
+            app:icon="@drawable/ic_angle_black_24dp"
+            android:text="NIVEL"
+            app:strokeColor="@color/plomo"
+            app:strokeWidth="2dp"
             />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnQR"
-            android:textStyle="bold"
-            android:backgroundTint="@color/plomo"
+            style="@style/btnPrimary2"
             android:layout_width="match_parent"
-            android:textColor="@color/amarilloHomosexual"
+            app:icon="@drawable/ic_camera_black_24dp"
             android:layout_height="wrap_content"
             android:text="HERRAMIENTA QR"
             />

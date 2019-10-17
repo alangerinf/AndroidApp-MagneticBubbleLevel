@@ -7,7 +7,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 
-import androidx.appcompat.app.AppCompatActivity
 
 import com.alanger.nivel.R
 import com.google.zxing.BarcodeFormat
@@ -17,6 +16,7 @@ import com.google.zxing.WriterException
 
 import java.util.Hashtable
 import android.graphics.Color.BLACK
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+
+    <style name="btnPrimary" parent="Theme.MaterialComponents.Light">
+        <item name="android:backgroundTint">@color/amarilloHomosexual</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/plomo</item>
+        <item name="rippleColor">@color/plomo</item>
+        <item name="iconTint">@color/plomo</item>
+    </style>
+
+    <style name="btnSecondary" parent="Theme.MaterialComponents.Light">
+        <item name="android:backgroundTint">@color/plomo</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/amarilloHomosexual</item>
+        <item name="rippleColor">@color/amarilloHomosexual</item>
+        <item name="iconTint">@color/amarilloHomosexual</item>
+    </style>
+
+    <!-- Secondary application theme. -->
+
+    <!-- Secondary application theme. -->
+
+
+    <style name="btnPrimary2" parent="Theme.MaterialComponents.Light">
+        <item name="android:backgroundTint">@color/azul_ojete</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="rippleColor">@color/white</item>
+        <item name="iconTint">@color/white</item>
+    </style>
+
+    <style name="btnSecondary2" parent="Theme.MaterialComponents.Light">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/azul_ojete</item>
+        <item name="rippleColor">@color/azul_ojete</item>
+        <item name="iconTint">@color/azul_ojete</item>
+    </style>
+</resources>

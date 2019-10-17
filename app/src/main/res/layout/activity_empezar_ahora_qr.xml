@@ -46,12 +46,11 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnEmpezar"
-            android:textStyle="bold"
-            android:backgroundTint="@color/amarilloHomosexual"
-            android:textColor="@color/plomo"
+            style="@style/btnPrimary2"
+            app:icon="@drawable/ic_navigate_next_black_24dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="HERRAMIENTA QR"
+            android:text="Empezar Ahora"
             />
 
     </LinearLayout>
