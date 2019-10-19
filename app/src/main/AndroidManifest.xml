@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.alanger.nivel">
+    package="com.cajamarca.nivel">
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -18,58 +18,54 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
 
-
-        <activity android:name=".main.MainActivity">
+        <activity android:name="com.cajamarca.nivel.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-
-        <activity android:name=".main.nivel.NivelEmpezarAhoraActivity"
-            android:parentActivityName=".main.MainActivity"
+        <activity android:name="com.cajamarca.nivel.main.nivel.NivelEmpezarAhoraActivity"
+            android:parentActivityName="com.cajamarca.nivel.main.MainActivity"
             />
 
-        <activity android:name=".main.qr.QREmpezarAhoraActivity"
-            android:parentActivityName=".main.MainActivity"
+        <activity android:name="com.cajamarca.nivel.main.qr.QREmpezarAhoraActivity"
+            android:parentActivityName="com.cajamarca.nivel.main.MainActivity"
             android:theme="@style/AppTheme2"
             />
 
-
-        <activity android:name=".main.nivel.NivelSelectActivity"
-            android:parentActivityName=".main.nivel.NivelEmpezarAhoraActivity"
+        <activity android:name="com.cajamarca.nivel.main.nivel.NivelSelectActivity"
+            android:parentActivityName="com.cajamarca.nivel.main.nivel.NivelEmpezarAhoraActivity"
             />
 
-        <activity android:name=".main.qr.QRSelectActivity"
-            android:parentActivityName=".main.qr.QREmpezarAhoraActivity"
+        <activity android:name="com.cajamarca.nivel.main.qr.QRSelectActivity"
+            android:parentActivityName="com.cajamarca.nivel.main.qr.QREmpezarAhoraActivity"
             android:theme="@style/AppTheme2"
             >
         </activity>
 
-
         <activity
-            android:name=".main.nivel.echado.NivelEchadoActivity"
-            android:parentActivityName=".main.nivel.NivelSelectActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".main.nivel.centrado.NivelCentradoActivity"
-            android:parentActivityName=".main.nivel.NivelSelectActivity"
+            android:name="com.cajamarca.nivel.main.nivel.echado.NivelEchadoActivity"
+            android:parentActivityName="com.cajamarca.nivel.main.nivel.NivelSelectActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".main.qr.leer.CustomScannerActivity"
+            android:name="com.cajamarca.nivel.main.nivel.centrado.NivelCentradoActivity"
+            android:parentActivityName="com.cajamarca.nivel.main.nivel.NivelSelectActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name="com.cajamarca.nivel.main.qr.leer.CustomScannerActivity"
             android:theme="@style/AppTheme2"
-            android:parentActivityName=".main.qr.QRSelectActivity"
+            android:parentActivityName="com.cajamarca.nivel.main.qr.QRSelectActivity"
             android:screenOrientation="portrait"
             android:stateNotNeeded="true"
             android:windowSoftInputMode="stateAlwaysHidden">
-
         </activity>
 
-        <activity android:name=".main.qr.crear.CrearQRActivity"
+        <activity android:name="com.cajamarca.nivel.main.qr.crear.CrearQRActivity"
             android:theme="@style/AppTheme2"
-            android:parentActivityName=".main.qr.QRSelectActivity"
+            android:parentActivityName="com.cajamarca.nivel.main.qr.QRSelectActivity"
             android:screenOrientation="portrait"
             android:stateNotNeeded="true"
             android:windowSoftInputMode="stateAlwaysHidden">
@@ -80,9 +76,11 @@
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
+
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
             android:value="true"/>
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -91,6 +89,7 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/appid_admob" />
+
     </application>
 
 </manifest>
