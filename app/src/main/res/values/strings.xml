@@ -6,9 +6,9 @@
 
 
     <!--TODO: admob publicidad ids-->
-    <string name="appid_admob">ca-app-pub-3646684063151292~6596996462</string>
+    <string name="appid_admob">ca-app-pub-7316865575286334~2207423760</string>
 
-    <string name="adUnitId">ca-app-pub-3646684063151292/5088473672</string>
-    <string name="interstitial_ad_unit_id">ca-app-pub-3646684063151292/1149228669</string>
+    <string name="adUnitId">ca-app-pub-7316865575286334/7268178751</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-7316865575286334/3328933740</string>
 
 </resources>
